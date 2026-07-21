@@ -4,7 +4,7 @@ from pathlib import Path
 
 out = Path('capture')
 raw_bytes = (out/f'obj_graph_payload.bin').read_bytes()
-payload_bytes = raw_bytes[1:-1]  # Exclude frame start 0x3A and checksum 0x66
+payload_bytes = raw_bytes[1:-1]  # Exclude frame start 0x3A and checksum
 
 # 1. Reconstruct the 80x48 pixel grid
 # Initialize 48 rows x 80 columns canvas with zeros

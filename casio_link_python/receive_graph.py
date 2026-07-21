@@ -3,6 +3,7 @@ from pathlib import Path
 from casio_transport import *
 from casio_protocol import *
 from casio_report import report
+from casio_image import *
 
 
 PORT = 'COM5'
@@ -26,8 +27,8 @@ report(h)
 (out/f'obj_graph_header.bin').write_bytes(hdr)
 if h.payload_length:
     p = read_exact(ser,h.payload_length)
-    print(hex_dump(p))
     (out/f'obj_graph_payload.bin').write_bytes(p)
+    decode_casio_image(p)
     
 
 print("DONE")
