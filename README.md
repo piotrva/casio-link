@@ -44,6 +44,28 @@ Header carries information:
 
 Header might be accepted by sending ACK (0x06) or rejected (for example when file exists) by sending 0x21. Only after header is accepted the payload is transmitted. There seem to be no timeout on this operation.
 
+### Graph Header
+There is a special header for graph/image transfer. The graph header length is exactly 40 bytes.
+
+| Byte no | Information |
+| ------- | ----------- |
+| 0 - 2   | Image heder indicator = `:DD` |
+| 3       | Image height in pixels |
+| 4       | Image width in pixels |
+| 5 - 8   | Some unknown data |
+| 9 - 48  | 0xFF |
+| 49      | Checksum |
+
+After acking this a payload of size of N = (Image height) * (Image width) / 8 + 2 is transmitted.
+
+| Byte no   | Information |
+| --------- | ----------- |
+| 0         | Frame start = `:` |
+| 1 - (N-2) | Image data |
+| (N-1)     | Checksum |
+
+For image data decoding see source code. Each byte represents a row of 8 pixels, starting from left bottom corner, and progressing up and then right.
+
 ### END Header
 There is a special header (length is still 50 bytes) containing `:END` information.
 
