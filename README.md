@@ -89,6 +89,21 @@ After this RX will respond with ACK (0x06) as well and the communication might c
 If the communication error is detected (ex. wrong checksum, wrong response to rejection, wrong handshake) the side that want to indicate error sends 0x22.
 After this the communication must be started from scratch (calculator asks to press AC that will exit transmit/recieve modes)
 
+## Appendix
+Below there are some interesting observations, tips and tricks.
+
+### Test mode
+In order to enter test mode of the calculator you need to press and hold [▶] and [a b/c] and then press [AC/ON], then release all three buttons.
+
+**Please be aware that after you exit test mode all the memory would be wiped! Make backup before!**
+
+### Password protected programs
+The calculator allows for pasword protected programs, which source code is available for edit/view and transfer only after entering correct password.
+
+First note about this is that in order to give user time to enter password in file transfer mode you need to increase timeout in the software (maybe in the future this wil be handled in a better way).
+
+Second security observation is the fact, that still you can execute full backup. During this process user is not asked to enter any password - and after rewieving the backup content both password and the file contents can be extracted.
+
 ## Disclaimer / Use at Your Own Risk
 
 **IMPORTANT: Read this before using any hardware designs, schematics, or software in this repository.**
