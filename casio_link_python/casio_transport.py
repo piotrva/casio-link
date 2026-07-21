@@ -5,7 +5,9 @@ DC3=0x13
 ACK=0x06
 ERR=0x22
 EXISTS=0x21
+
 HEADER_SIZE=50
+GRAPH_HEADER_SIZE=40
 
 def read_exact(ser,n):
     d=bytearray()

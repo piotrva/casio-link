@@ -16,10 +16,12 @@ class Header:
 def payload_length(obj,f):
     if obj in ('TXT','FNC','MEM'):
         return f
-    if obj=='VAL':
+    if obj == 'VAL':
         if f==0:return 0
         if f==1:return 16
         raise RuntimeError(f'Unsupported VAL field {f}')
+    if obj == 'DD0':
+        return 482
     raise RuntimeError(f'Unsupported object {obj}')
 
 def parse(raw):
@@ -27,7 +29,7 @@ def parse(raw):
     c=raw[5:7].decode('ascii','replace')
     f=int.from_bytes(raw[9:11],'big')
     ident=raw[11:35].split(b'\xff')[0].decode('ascii','replace')
-    return Header(raw, t, c, f, payload_length(t,f), ident,raw[-1], t=='MEM' and c=='BU')
+    return Header(raw, t, c, f, payload_length(t,f), ident, raw[-1], t=='MEM' and c=='BU')
 
 def is_end(raw):
     return raw[:4]==b':END'
