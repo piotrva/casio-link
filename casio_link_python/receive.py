@@ -4,6 +4,7 @@ from casio_transport import *
 from casio_protocol import *
 from casio_report import report
 
+def ascii_safe(d): return ''.join(b if 32<=ord(b)<127 else '_' for b in d)
 
 PORT = 'COM5'
 BAUD = 9600
@@ -26,11 +27,11 @@ while True:
         break
     h = parse(hdr)
     report(h)
-    (out/f'obj_{idx:03d}_header.bin').write_bytes(hdr)
+    (out/f'obj_{idx:03d}_{ascii_safe(h.identifier)}_header.bin').write_bytes(hdr)
     ack(ser)
     if h.payload_length:
         p = read_exact(ser,h.payload_length)
-        (out/f'obj_{idx:03d}_payload.bin').write_bytes(p)
+        (out/f'obj_{idx:03d}_{ascii_safe(h.identifier):s}_payload.bin').write_bytes(p)
         ack(ser)
     if h.terminates_transfer:
         print('MEM BU -> END')
