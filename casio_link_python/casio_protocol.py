@@ -22,6 +22,8 @@ def payload_length(obj,f):
         raise RuntimeError(f'Unsupported VAL field {f}')
     if obj == 'DD0':
         return 482
+    if obj == 'REQ':
+        return 0
     raise RuntimeError(f'Unsupported object {obj}')
 
 def parse(raw):

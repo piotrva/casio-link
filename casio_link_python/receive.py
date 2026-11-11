@@ -12,7 +12,7 @@ BAUD = 9600
 out = Path('capture')
 out.mkdir(exist_ok=True)
 
-ser = serial.Serial(PORT, BAUD, timeout=5, stopbits=2)
+ser = serial.Serial(PORT, BAUD, timeout=60, stopbits=2)
 
 print('Waiting for ENQ...')
 wait_verify_response(ser, ENQ)
